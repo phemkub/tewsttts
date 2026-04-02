@@ -13,15 +13,10 @@ function App() {
   const [showFireworks, setShowFireworks] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [audioSourceIndex, setAudioSourceIndex] = useState(0)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const audioSources = [
-    content.finalSongUrl,
-    'superpowers.mp3',
-    'music/superpowers.mp3',
-    './superpowers.mp3',
-    './music/superpowers.mp3',
-  ]
+
+  // ✅ แก้ตรงนี้: ใช้ path เดียว /superpowers.mp3 (ไฟล์ต้องอยู่ใน public/)
+  const audioSrc = '/superpowers.mp3'
 
   const handleGiftOpened = () => {
     setShowFireworks(true)
@@ -32,36 +27,25 @@ function App() {
   useEffect(() => {
     const audio = audioRef.current
     if (!audio) return
-
-    if (step === 'letter' && content.finalSongUrl) {
+    if (step === 'letter') {
       void audio.play().catch(() => {
-        // Some browsers still block playback; user can press play in controls.
+        // Browser อาจ block autoplay ได้ กดปุ่ม "เปิดเพลง" แทนได้เลย
       })
       return
     }
-
     audio.pause()
   }, [step])
 
   const handlePlayToggle = () => {
     const audio = audioRef.current
     if (!audio) return
-
     if (audio.paused) {
       void audio.play()
       setIsPlaying(true)
       return
     }
-
     audio.pause()
     setIsPlaying(false)
-  }
-
-  const handleAudioError = () => {
-    setAudioSourceIndex((prev) => {
-      const next = prev + 1
-      return next < audioSources.length ? next : prev
-    })
   }
 
   return (
@@ -95,15 +79,15 @@ function App() {
       {step === 'letter' ? (
         <section className="panel letter-stage">
           <div className="audio-wrap">
+            {/* ✅ แก้ตรงนี้: src ใช้ audioSrc ตัวเดียว ไม่ต้อง fallback หลาย path แล้ว */}
             <audio
               ref={audioRef}
-              src={audioSources[audioSourceIndex]}
+              src={audioSrc}
               controls
               loop
               muted={isMuted}
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
-              onError={handleAudioError}
             />
             <button className="primary-btn" onClick={handlePlayToggle}>
               {isPlaying ? 'หยุดเพลง' : 'เปิดเพลง'}
