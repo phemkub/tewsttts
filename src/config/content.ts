@@ -10,8 +10,9 @@ export const content = {
 
     'ไม่ว่าเวลาจะผ่านไปแค่ไหน เค้ายังอยู่ข้างๆ เธอเสมอ',
   ],
+  
   letterClosing: 'Happy Birthday นะ คนเก่งของเค้า',
-  // ใส่ลิงก์รูปเองตรงนี้ได้เลย (จะเอารูป AI หรือรูปแฟนก็ได้)
+  finalSongTitle: 'กำลังเล่น: Superpowers - Daniel Caesar ',
   galleryImageUrls: [
     'https://i.ibb.co/r2WdmCmN/1775098202860.jpg',
     'https://i.ibb.co/DPKkmpnC/1775098345282.jpg',
