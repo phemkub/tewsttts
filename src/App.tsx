@@ -26,13 +26,13 @@ function App() {
 
       {step === 'landing' ? (
         <section className="panel">
-          <p className="emoji-row">My Melody 🎀 | 🐶 Puppy Love</p>
+          <p className="emoji-row">My Skibidi GF🎀 | 🐶 Puppy Lover</p>
           <TypewriterTitle text={content.mainTitle} />
           <p className="sub-title">
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
           <p className="hint-text">
-            กดปุ่มด้านล่างเพื่อเปิดเซอร์ไพรส์ทีละด่าน
+            เธอกดNextเร็วว
           </p>
           <button className="primary-btn" onClick={() => setStep('gift')}>
             {content.nextLabel}
