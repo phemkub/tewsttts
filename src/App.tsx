@@ -13,7 +13,15 @@ function App() {
   const [showFireworks, setShowFireworks] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [audioSourceIndex, setAudioSourceIndex] = useState(0)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const audioSources = [
+    content.finalSongUrl,
+    'superpowers.mp3',
+    'music/superpowers.mp3',
+    './superpowers.mp3',
+    './music/superpowers.mp3',
+  ]
 
   const handleGiftOpened = () => {
     setShowFireworks(true)
@@ -49,6 +57,13 @@ function App() {
     setIsPlaying(false)
   }
 
+  const handleAudioError = () => {
+    setAudioSourceIndex((prev) => {
+      const next = prev + 1
+      return next < audioSources.length ? next : prev
+    })
+  }
+
   return (
     <main className="app-shell">
       {showFireworks ? <MiniFireworks /> : null}
@@ -82,12 +97,13 @@ function App() {
           <div className="audio-wrap">
             <audio
               ref={audioRef}
-              src={content.finalSongUrl}
+              src={audioSources[audioSourceIndex]}
               controls
               loop
               muted={isMuted}
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
+              onError={handleAudioError}
             />
             <button className="primary-btn" onClick={handlePlayToggle}>
               {isPlaying ? 'หยุดเพลง' : 'เปิดเพลง'}
