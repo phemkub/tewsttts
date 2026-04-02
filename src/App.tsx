@@ -80,15 +80,14 @@ function App() {
         <section className="panel letter-stage">
           <div className="audio-wrap">
             {/* ✅ แก้ตรงนี้: src ใช้ audioSrc ตัวเดียว ไม่ต้อง fallback หลาย path แล้ว */}
-            <audio
-              ref={audioRef}
-              src={audioSrc}
-              controls
-              loop
-              muted={isMuted}
-              onPlay={() => setIsPlaying(true)}
-              onPause={() => setIsPlaying(false)}
-            />
+           <audio
+  ref={audioRef}
+  src={audioSrc}
+  loop
+  muted={isMuted}
+  onPlay={() => setIsPlaying(true)}
+  onPause={() => setIsPlaying(false)}
+/>
             <button className="primary-btn" onClick={handlePlayToggle}>
               {isPlaying ? 'หยุดเพลง' : 'เปิดเพลง'}
             </button>
