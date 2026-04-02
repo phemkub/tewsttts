@@ -15,8 +15,8 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // ✅ แก้ตรงนี้: ใช้ path เดียว /superpowers.mp3 (ไฟล์ต้องอยู่ใน public/)
-  const audioSrc = '/superpowers.mp3'
+
+const audioSrc = '/tewsttts/superpowers.mp3'
 
   const handleGiftOpened = () => {
     setShowFireworks(true)
