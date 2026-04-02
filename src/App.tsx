@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import GiftBox from './components/GiftBox'
 import MiniFireworks from './components/MiniFireworks'
 import PaperLetter from './components/PaperLetter'
@@ -11,6 +11,8 @@ type Step = 'landing' | 'gift' | 'letter'
 function App() {
   const [step, setStep] = useState<Step>('landing')
   const [showFireworks, setShowFireworks] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const handleGiftOpened = () => {
     setShowFireworks(true)
@@ -18,19 +20,33 @@ function App() {
     window.setTimeout(() => setStep('letter'), 1700)
   }
 
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    if (step === 'letter' && content.finalSongUrl) {
+      void audio.play().catch(() => {
+        // Some browsers still block playback; user can press play in controls.
+      })
+      return
+    }
+
+    audio.pause()
+  }, [step])
+
   return (
     <main className="app-shell">
       {showFireworks ? <MiniFireworks /> : null}
 
       {step === 'landing' ? (
         <section className="panel">
-          <p className="emoji-row">My SKIBIDI GF 🎀 | 🐶 Puppy Lover</p>
+          <p className="emoji-row">My Melody 🎀 | 🐶 Puppy Love</p>
           <TypewriterTitle text={content.mainTitle} />
           <p className="sub-title">
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
           <p className="hint-text">
-            เธอกดNEXTเร็ว
+            กดปุ่มด้านล่างเพื่อเปิดเซอร์ไพรส์ทีละด่าน
           </p>
           <button className="primary-btn" onClick={() => setStep('gift')}>
             {content.nextLabel}
@@ -48,6 +64,21 @@ function App() {
 
       {step === 'letter' ? (
         <section className="panel letter-stage">
+          <div className="song-marquee" aria-live="polite">
+            <span>{content.finalSongTitle} | {content.finalSongTitle} | {content.finalSongTitle}</span>
+          </div>
+          <div className="audio-wrap">
+            <audio
+              ref={audioRef}
+              src={content.finalSongUrl}
+              controls
+              loop
+              muted={isMuted}
+            />
+            <button className="primary-btn" onClick={() => setIsMuted((prev) => !prev)}>
+              {isMuted ? 'เปิดเสียง' : 'ปิดเสียง'}
+            </button>
+          </div>
           <PaperLetter />
           <PhotoGallery />
         </section>
