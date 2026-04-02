@@ -12,6 +12,7 @@ function App() {
   const [step, setStep] = useState<Step>('landing')
   const [showFireworks, setShowFireworks] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const handleGiftOpened = () => {
@@ -33,6 +34,20 @@ function App() {
 
     audio.pause()
   }, [step])
+
+  const handlePlayToggle = () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    if (audio.paused) {
+      void audio.play()
+      setIsPlaying(true)
+      return
+    }
+
+    audio.pause()
+    setIsPlaying(false)
+  }
 
   return (
     <main className="app-shell">
@@ -64,9 +79,6 @@ function App() {
 
       {step === 'letter' ? (
         <section className="panel letter-stage">
-          <div className="song-marquee" aria-live="polite">
-            <span>{content.finalSongTitle} | {content.finalSongTitle} | {content.finalSongTitle}</span>
-          </div>
           <div className="audio-wrap">
             <audio
               ref={audioRef}
@@ -74,7 +86,12 @@ function App() {
               controls
               loop
               muted={isMuted}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
             />
+            <button className="primary-btn" onClick={handlePlayToggle}>
+              {isPlaying ? 'หยุดเพลง' : 'เปิดเพลง'}
+            </button>
             <button className="primary-btn" onClick={() => setIsMuted((prev) => !prev)}>
               {isMuted ? 'เปิดเสียง' : 'ปิดเสียง'}
             </button>
