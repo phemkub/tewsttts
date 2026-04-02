@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-// --- Mock Components (ถ้าคุณมีไฟล์แยกอยู่แล้ว ให้เปลี่ยนเป็นการ import ปกติ) ---
-// Note: หากก๊อปไปใส่โปรเจกต์เดิมที่มีไฟล์เหล่านี้อยู่แล้ว ให้คงการ import ด้านบนไว้ครับ
+
 import GiftBox from './components/GiftBox'
 import MiniFireworks from './components/MiniFireworks'
 import PaperLetter from './components/PaperLetter'
