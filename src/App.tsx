@@ -3,7 +3,6 @@ import GiftBox from './components/GiftBox'
 import MiniFireworks from './components/MiniFireworks'
 import PaperLetter from './components/PaperLetter'
 import PhotoGallery from './components/PhotoGallery'
-import PhotoUploader from './components/PhotoUploader'
 import TypewriterTitle from './components/TypewriterTitle'
 import { content } from './config/content'
 
@@ -12,7 +11,6 @@ type Step = 'landing' | 'gift' | 'letter'
 function App() {
   const [step, setStep] = useState<Step>('landing')
   const [showFireworks, setShowFireworks] = useState(false)
-  const [galleryVersion, setGalleryVersion] = useState(0)
 
   const handleGiftOpened = () => {
     setShowFireworks(true)
@@ -26,13 +24,13 @@ function App() {
 
       {step === 'landing' ? (
         <section className="panel">
-          <p className="emoji-row">My Skibidi GF🎀 | 🐶 Puppy Lover</p>
+          <p className="emoji-row">My SKIBIDI GF 🎀 | 🐶 Puppy Lover</p>
           <TypewriterTitle text={content.mainTitle} />
           <p className="sub-title">
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
           <p className="hint-text">
-            เธอกดNextเร็วว
+            เธอกดNEXTเร็ว
           </p>
           <button className="primary-btn" onClick={() => setStep('gift')}>
             {content.nextLabel}
@@ -51,8 +49,7 @@ function App() {
       {step === 'letter' ? (
         <section className="panel letter-stage">
           <PaperLetter />
-          <PhotoUploader onUploaded={() => setGalleryVersion((v) => v + 1)} />
-          <PhotoGallery refreshKey={galleryVersion} />
+          <PhotoGallery />
         </section>
       ) : null}
     </main>
