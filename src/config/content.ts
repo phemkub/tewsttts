@@ -13,7 +13,7 @@ export const content = {
   
   letterClosing: 'Happy Birthday นะ คนเก่งของเค้า',
   finalSongTitle: 'กำลังเล่น: Superpowers - Daniel Caesar ',
-  finalSongUrl: '/music/superpowers.mp3',
+  finalSongUrl: '/superpowers.mp3',
   galleryImageUrls: [
     'https://i.ibb.co/r2WdmCmN/1775098202860.jpg',
     'https://i.ibb.co/DPKkmpnC/1775098345282.jpg',
