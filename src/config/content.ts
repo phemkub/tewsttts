@@ -18,6 +18,6 @@ export const content = {
     'https://i.ibb.co/r2WdmCmN/1775098202860.jpg',
     'https://i.ibb.co/DPKkmpnC/1775098345282.jpg',
     'https://i.ibb.co/YTk5H4rX/Screenshot-20260402-095718-Instagram.jpg',
-    'https://api.dicebear.com/9.x/adventurer/svg?seed=CuteDog',
+    'https://i.ibb.co/7dLCxyL2/IMG-20260327-204412-659.jpg',
   ],
 }
