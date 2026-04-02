@@ -13,9 +13,9 @@ export const content = {
   letterClosing: 'Happy Birthday นะ คนเก่งของเค้า',
   // ใส่ลิงก์รูปเองตรงนี้ได้เลย (จะเอารูป AI หรือรูปแฟนก็ได้)
   galleryImageUrls: [
-    'https://api.dicebear.com/9.x/adventurer/svg?seed=PinkPuppy',
-    'https://api.dicebear.com/9.x/adventurer/svg?seed=MyMelody',
-    'https://api.dicebear.com/9.x/adventurer/svg?seed=BirthdayKatoon',
+    'https://ibb.co/LhtTVDGr',
+    'https://ibb.co/HLgYRdQz',
+    'https://ibb.co/LhtTVDGr',
     'https://api.dicebear.com/9.x/adventurer/svg?seed=CuteDog',
   ],
 }
