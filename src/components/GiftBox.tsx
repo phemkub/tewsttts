@@ -22,7 +22,7 @@ export default function GiftBox({ onOpen }: GiftBoxProps) {
         <span className="gift-ribbon-h" />
         <span className="gift-message">{opened ? 'SURPRISE! 💖' : content.openGiftLabel}</span>
       </button>
-      <p className="hint-text">{opened ? 'กำลังเปิดของขวัญ...' : 'มี My Melody + น้องหมาแอบอยู่ 🐶🎀'}</p>
+      <p className="hint-text">{opened ? 'กำลังเปิดของขวัญ...' : 'มีสุดหล่อ + น้องหมาแอบอยู่ 🐶🎀'}</p>
     </div>
   )
 }
