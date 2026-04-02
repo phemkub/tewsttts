@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
-// --- Imports (เช็คชื่อโฟลเดอร์ให้ตรงกับโปรเจกต์คุณนะครับ) ---
+
 import GiftBox from './components/GiftBox'
 import MiniFireworks from './components/MiniFireworks'
 import PaperLetter from './components/PaperLetter'
@@ -17,10 +17,10 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // ดึงไฟล์เพลงจากหน้าแรกที่คุณอัปโหลดไว้ (Root Path)
+
   const songUrl = './superpowers.mp3'
 
-  // ฟังก์ชันสลับเล่น/หยุด
+  
   const togglePlay = () => {
     if (!audioRef.current) return
     if (isPlaying) {
@@ -31,11 +31,11 @@ function App() {
     setIsPlaying(!isPlaying)
   }
 
-  // ฟังก์ชันตอนเปิดกล่อง
+
   const handleGiftOpened = () => {
     setShowFireworks(true)
     
-    // กระตุ้นให้เพลงเล่นทันทีที่คลิก (แก้ปัญหา Browser บล็อกเสียง)
+  
     if (audioRef.current) {
       audioRef.current.play()
         .then(() => setIsPlaying(true))
