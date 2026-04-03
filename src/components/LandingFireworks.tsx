@@ -36,7 +36,7 @@ export default function LandingFireworks() {
 
     // เสียงพลุวนซ้ำตลอด
     const playSound = () => {
-      const audio = new Audio('public/fireworkl.mp3')
+      const audio = new Audio('./fireworkl.mp3')
       audio.volume = 0.5
       void audio.play().catch(() => {})
     }
