@@ -29,7 +29,7 @@ const audioSrc = '/tewsttts/superpowers.mp3'
     if (!audio) return
     if (step === 'letter') {
       void audio.play().catch(() => {
-        // Browser อาจ block autoplay ได้ กดปุ่ม "เปิดเพลง" แทนได้เลย
+      
       })
       return
     }
@@ -79,7 +79,7 @@ const audioSrc = '/tewsttts/superpowers.mp3'
       {step === 'letter' ? (
         <section className="panel letter-stage">
           <div className="audio-wrap">
-            {/* ✅ แก้ตรงนี้: src ใช้ audioSrc ตัวเดียว ไม่ต้อง fallback หลาย path แล้ว */}
+            {}
            <audio
   ref={audioRef}
   src={audioSrc}
