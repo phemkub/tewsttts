@@ -80,9 +80,15 @@ function App() {
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
           <p className="hint-text">กดตรงไหนก็ได้ของกรอบสีขาวก่อนกด NEXT</p>
-          <button className="primary-btn" onClick={handleNextClick}>
-            {content.nextLabel}
-          </button>
+          <button
+  className="primary-btn"
+  onClick={(e) => {
+    e.stopPropagation()
+    handleNextClick()
+  }}
+>
+  {content.nextLabel}
+</button>
         </section>
       ) : null}
       {step === 'gift' ? (
