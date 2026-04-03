@@ -60,7 +60,7 @@ const audioSrc = '/tewsttts/superpowers.mp3'
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
           <p className="hint-text">
-            กดปุ่มด้านล่างเพื่อเปิดเซอร์ไพรส์ทีละด่าน
+            เธอกดNEXTเร็ววว
           </p>
           <button className="primary-btn" onClick={() => setStep('gift')}>
             {content.nextLabel}
