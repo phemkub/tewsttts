@@ -34,18 +34,24 @@ export default function LandingFireworks() {
 
     const colors = ['#ff6bae', '#ff4d9e', '#ffe066', '#fff', '#ffb3d1', '#ff94d5', '#ffd6ec']
 
-    // เสียงพลุวนซ้ำตลอด
     const playSound = () => {
       const audio = new Audio('/tewsttts/fireworkl.mp3')
       audio.volume = 0.5
       void audio.play().catch(() => {})
     }
 
-    let soundInterval: ReturnType<typeof setInterval>
-    soundInterval = setInterval(() => {
+    let soundInterval: ReturnType<typeof setInterval> | null = null
+
+    const startSound = () => {
+      if (soundInterval) return
       playSound()
-    }, 800)
-    playSound() // เล่นทันทีตอนเริ่ม
+      soundInterval = setInterval(() => {
+        playSound()
+      }, 800)
+    }
+
+    window.addEventListener('click', startSound, { once: true })
+    window.addEventListener('touchstart', startSound, { once: true })
 
     const rockets: Rocket[] = []
 
@@ -62,7 +68,6 @@ export default function LandingFireworks() {
       })
     }
 
-    // spawn จรวดใหม่เรื่อยๆ
     spawnRocket()
     spawnRocket()
     const spawnInterval = setInterval(() => {
@@ -124,7 +129,6 @@ export default function LandingFireworks() {
           }
         }
 
-        // ลบจรวดที่ระเบิดแล้วและ particle หายหมดแล้ว
         if (rocket.exploded && allFaded) {
           rockets.splice(i, 1)
         }
@@ -139,7 +143,9 @@ export default function LandingFireworks() {
     return () => {
       cancelAnimationFrame(animId)
       clearInterval(spawnInterval)
-      clearInterval(soundInterval)
+      if (soundInterval) clearInterval(soundInterval)
+      window.removeEventListener('click', startSound)
+      window.removeEventListener('touchstart', startSound)
     }
   }, [])
 
