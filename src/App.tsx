@@ -22,8 +22,6 @@ function App() {
   if (fireworkAudioRef.current) return
   const audio = new Audio('/tewsttts/fireworkl.mp3')
   audio.loop = true
-  audio.loopStart = 0
-  audio.loopEnd = audio.duration
   audio.volume = 0.5
   void audio.play().catch(() => {})
   fireworkAudioRef.current = audio
