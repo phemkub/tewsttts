@@ -19,9 +19,9 @@ function App() {
   const audioSrc = '/tewsttts/superpowers.mp3'
 
   const startFireworkSound = () => {
-    if (fireworkAudioRef.current) return
+    if (fireworkAudioRef.current) return // เล่นแล้วไม่เล่นซ้ำ
     const audio = new Audio('/tewsttts/fireworkl.mp3')
-    audio.loop = true
+    audio.loop = false
     audio.volume = 0.5
     void audio.play().catch(() => {})
     fireworkAudioRef.current = audio
@@ -36,15 +36,11 @@ function App() {
   }
 
   const handleNextClick = () => {
-  startFireworkSound()
-  window.setTimeout(() => {
     stopFireworkSound()
     setStep('gift')
-  }, 100)
-}
+  }
 
   const handleGiftOpened = () => {
-    stopFireworkSound()
     setShowFireworks(true)
     window.setTimeout(() => setShowFireworks(false), 2200)
     window.setTimeout(() => setStep('letter'), 1700)
@@ -76,14 +72,14 @@ function App() {
     <main className="app-shell">
       {showFireworks ? <MiniFireworks /> : null}
       {step === 'landing' ? (
-        <section className="panel">
+        <section className="panel" onClick={startFireworkSound}>
           <LandingFireworks />
           <p className="emoji-row">My Melody 🎀 | 🐶 Puppy Love</p>
           <TypewriterTitle text={content.mainTitle} />
           <p className="sub-title">
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
-          <p className="hint-text">เธอกดNEXTเร็ววว</p>
+          <p className="hint-text">กดตรงไหนก็ได้ของกรอบสีขาวก่อนกด NEXT</p>
           <button className="primary-btn" onClick={handleNextClick}>
             {content.nextLabel}
           </button>
