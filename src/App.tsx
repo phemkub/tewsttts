@@ -21,7 +21,7 @@ function App() {
   const startFireworkSound = () => {
     if (fireworkAudioRef.current) return // เล่นแล้วไม่เล่นซ้ำ
     const audio = new Audio('/tewsttts/fireworkl.mp3')
-    audio.loop = false
+    audio.loop = true
     audio.volume = 0.5
     void audio.play().catch(() => {})
     fireworkAudioRef.current = audio
