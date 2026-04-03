@@ -35,10 +35,10 @@ function App() {
     }
   }
 
-  const handleNextClick = () => {
-    stopFireworkSound()
-    setStep('gift')
-  }
+ const handleNextClick = () => {
+  stopFireworkSound()
+  setStep('gift')
+}
 
   const handleGiftOpened = () => {
     setShowFireworks(true)
