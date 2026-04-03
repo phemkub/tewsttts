@@ -36,21 +36,21 @@ body {
 }
 
 .panel {
-width: min(920px, 92vw);
-min-height: min(500px, 80vh);
-background: rgba(255, 247, 253, 0.92);
-border: 4px solid #f062b5;
-border-radius: 24px;
-padding: 40px 24px;
-text-align: center;
-box-shadow: 0 14px 40px rgba(216, 47, 136, 0.2);
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 12px;
-box-sizing: border-box;
-margin: 0 auto;
+  width: min(920px, 92vw);
+  min-height: min(500px, 80vh);
+  background: rgba(255, 247, 253, 0.92);
+  border: 4px solid #f062b5;
+  border-radius: 24px;
+  padding: 40px 24px;
+  text-align: center;
+  box-shadow: 0 14px 40px rgba(216, 47, 136, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
 .hero-title,
@@ -59,10 +59,7 @@ margin: 0 auto;
   font-family: 'Press Start 2P', cursive;
   line-height: 1.5;
   letter-spacing: 1px;
-  color: #e8007a;          /* เข้มขึ้นกว่าเดิม */
-  font-size: clamp(1rem, 4vw, 1.4rem);
-  text-shadow: 2px 2px 0 #ffc6e7;   /* เพิ่ม shadow ให้เด่น */
-  margin-bottom: 16px;
+  color: #d11b8d;
 }
 
 .hero-title {
@@ -225,12 +222,12 @@ margin: 0 auto;
 .paper-body {
   text-align: left;
   line-height: 1.8;
-  color: #7a3a62;    
 }
 
 .paper-closing {
   font-weight: 600;
   color: #bf0d7e;
+}
 
 .upload-btn input {
   display: none;
