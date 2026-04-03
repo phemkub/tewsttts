@@ -71,7 +71,7 @@ const audioSrc = '/tewsttts/superpowers.mp3'
       {step === 'gift' ? (
         <section className="panel">
           <h2 className="section-title">กล่องของขวัญสำหรับ {content.partnerName}</h2>
-          <p className="hint-text">กดที่่กล่องงง</p>
+          <p className="hint-text">กดที่กล่อง</p>
           <GiftBox onOpen={handleGiftOpened} />
         </section>
       ) : null}
