@@ -59,7 +59,10 @@ margin: 0 auto;
   font-family: 'Press Start 2P', cursive;
   line-height: 1.5;
   letter-spacing: 1px;
-  color: #d11b8d;
+  color: #e8007a;          /* เข้มขึ้นกว่าเดิม */
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  text-shadow: 2px 2px 0 #ffc6e7;   /* เพิ่ม shadow ให้เด่น */
+  margin-bottom: 16px;
 }
 
 .hero-title {
@@ -222,11 +225,18 @@ margin: 0 auto;
 .paper-body {
   text-align: left;
   line-height: 1.8;
+  color: #7a3a62;    
 }
 
 .paper-closing {
-  font-weight: 600;
-  color: #bf0d7e;
+  font-weight: 700;
+  color: #e8007a;          /* เข้มขึ้น */
+  font-size: 1.15rem;      /* ใหญ่ขึ้น */
+  font-family: 'Press Start 2P', cursive;   /* เพิ่มฟอนต์พิกเซล */
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #ffc6e7;
+  margin-top: 20px;
+  line-height: 1.7;
 }
 
 .upload-btn input {
