@@ -19,13 +19,15 @@ function App() {
   const audioSrc = '/tewsttts/superpowers.mp3'
 
   const startFireworkSound = () => {
-    if (fireworkAudioRef.current) return // เล่นแล้วไม่เล่นซ้ำ
-    const audio = new Audio('/tewsttts/fireworkl.mp3')
-    audio.loop = true
-    audio.volume = 0.5
-    void audio.play().catch(() => {})
-    fireworkAudioRef.current = audio
-  }
+  if (fireworkAudioRef.current) return
+  const audio = new Audio('/tewsttts/fireworkl.mp3')
+  audio.loop = true
+  audio.loopStart = 0
+  audio.loopEnd = audio.duration
+  audio.volume = 0.5
+  void audio.play().catch(() => {})
+  fireworkAudioRef.current = audio
+}
 
   const stopFireworkSound = () => {
     if (fireworkAudioRef.current) {
