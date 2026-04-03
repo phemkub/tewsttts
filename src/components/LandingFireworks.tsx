@@ -50,8 +50,8 @@ export default function LandingFireworks() {
       }, 800)
     }
 
-    window.addEventListener('click', startSound, { once: true })
-    window.addEventListener('touchstart', startSound, { once: true })
+    window.addEventListener('click', startSound)
+    window.addEventListener('touchstart', startSound)
 
     const rockets: Rocket[] = []
 
