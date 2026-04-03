@@ -26,7 +26,7 @@ function App() {
       void audio.play().catch(() => {})
     }
     playSound()
-    fireworkSoundRef.current = setInterval(playSound, 800)
+    fireworkSoundRef.current = setInterval(playSound, 3000)
   }
 
   const stopFireworkSound = () => {
