@@ -34,25 +34,6 @@ export default function LandingFireworks() {
 
     const colors = ['#ff6bae', '#ff4d9e', '#ffe066', '#fff', '#ffb3d1', '#ff94d5', '#ffd6ec']
 
-    const playSound = () => {
-      const audio = new Audio('/tewsttts/fireworkl.mp3')
-      audio.volume = 0.5
-      void audio.play().catch(() => {})
-    }
-
-    let soundInterval: ReturnType<typeof setInterval> | null = null
-
-    const startSound = () => {
-      if (soundInterval) return
-      playSound()
-      soundInterval = setInterval(() => {
-        playSound()
-      }, 800)
-    }
-
-    window.addEventListener('click', startSound)
-    window.addEventListener('touchstart', startSound)
-
     const rockets: Rocket[] = []
 
     const spawnRocket = () => {
@@ -143,9 +124,6 @@ export default function LandingFireworks() {
     return () => {
       cancelAnimationFrame(animId)
       clearInterval(spawnInterval)
-      if (soundInterval) clearInterval(soundInterval)
-      window.removeEventListener('click', startSound)
-      window.removeEventListener('touchstart', startSound)
     }
   }, [])
 
