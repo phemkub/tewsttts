@@ -20,44 +20,6 @@ interface Rocket {
   particles: Particle[]
 }
 
-function playFireworkSound(ctx: AudioContext, delay: number) {
-  setTimeout(() => {
-    const whoosh = ctx.createOscillator()
-    const whooshGain = ctx.createGain()
-    whoosh.connect(whooshGain)
-    whooshGain.connect(ctx.destination)
-    whoosh.frequency.setValueAtTime(200, ctx.currentTime)
-    whoosh.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.3)
-    whooshGain.gain.setValueAtTime(0.15, ctx.currentTime)
-    whooshGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3)
-    whoosh.start(ctx.currentTime)
-    whoosh.stop(ctx.currentTime + 0.3)
-
-    setTimeout(() => {
-      const bufferSize = ctx.sampleRate * 0.15
-      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
-      const data = buffer.getChannelData(0)
-      for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufferSize, 2)
-      }
-      const noise = ctx.createBufferSource()
-      noise.buffer = buffer
-      const noiseGain = ctx.createGain()
-      const noiseFilter = ctx.createBiquadFilter()
-      noiseFilter.type = 'bandpass'
-      noiseFilter.frequency.value = 1800
-      noiseFilter.Q.value = 0.8
-      noise.connect(noiseFilter)
-      noiseFilter.connect(noiseGain)
-      noiseGain.connect(ctx.destination)
-      noiseGain.gain.setValueAtTime(0.6, ctx.currentTime)
-      noiseGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15)
-      noise.start(ctx.currentTime)
-      noise.stop(ctx.currentTime + 0.15)
-    }, 300)
-  }, delay)
-}
-
 export default function LandingFireworks() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -72,52 +34,40 @@ export default function LandingFireworks() {
 
     const colors = ['#ff6bae', '#ff4d9e', '#ffe066', '#fff', '#ffb3d1', '#ff94d5', '#ffd6ec']
 
-    const rockets: Rocket[] = [
-      {
-        x: canvas.width * 0.18,
-        y: canvas.height,
-        vy: -12,
-        targetY: canvas.height * 0.25,
-        exploded: false,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        particles: [],
-      },
-      {
-        x: canvas.width * 0.82,
-        y: canvas.height,
-        vy: -11,
-        targetY: canvas.height * 0.28,
-        exploded: false,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        particles: [],
-      },
-      {
-        x: canvas.width * 0.12,
-        y: canvas.height,
-        vy: -10,
-        targetY: canvas.height * 0.35,
-        exploded: false,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        particles: [],
-      },
-      {
-        x: canvas.width * 0.88,
-        y: canvas.height,
-        vy: -10.5,
-        targetY: canvas.height * 0.32,
-        exploded: false,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        particles: [],
-      },
-    ]
+    // เสียงพลุวนซ้ำตลอด
+    const playSound = () => {
+      const audio = new Audio('/firework.mp3')
+      audio.volume = 0.5
+      void audio.play().catch(() => {})
+    }
 
-    try {
-      const audioCtx = new AudioContext()
-      playFireworkSound(audioCtx, 0)
-      playFireworkSound(audioCtx, 150)
-      playFireworkSound(audioCtx, 600)
-      playFireworkSound(audioCtx, 750)
-    } catch (_) {}
+    let soundInterval: ReturnType<typeof setInterval>
+    soundInterval = setInterval(() => {
+      playSound()
+    }, 800)
+    playSound() // เล่นทันทีตอนเริ่ม
+
+    const rockets: Rocket[] = []
+
+    const spawnRocket = () => {
+      const xOptions = [0.1, 0.18, 0.3, 0.5, 0.7, 0.82, 0.9]
+      rockets.push({
+        x: canvas.width * xOptions[Math.floor(Math.random() * xOptions.length)],
+        y: canvas.height,
+        vy: -(Math.random() * 3 + 9),
+        targetY: canvas.height * (Math.random() * 0.2 + 0.15),
+        exploded: false,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        particles: [],
+      })
+    }
+
+    // spawn จรวดใหม่เรื่อยๆ
+    spawnRocket()
+    spawnRocket()
+    const spawnInterval = setInterval(() => {
+      spawnRocket()
+    }, 700)
 
     function explode(rocket: Rocket) {
       rocket.exploded = true
@@ -138,17 +88,14 @@ export default function LandingFireworks() {
     }
 
     let animId: number
-    let done = false
 
     function animate() {
-      if (done) return
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height)
 
-      let allFaded = true
+      for (let i = rockets.length - 1; i >= 0; i--) {
+        const rocket = rockets[i]
 
-      for (const rocket of rockets) {
         if (!rocket.exploded) {
-          allFaded = false
           rocket.y += rocket.vy
           ctx!.beginPath()
           ctx!.arc(rocket.x, rocket.y, 3, 0, Math.PI * 2)
@@ -161,6 +108,7 @@ export default function LandingFireworks() {
           }
         }
 
+        let allFaded = true
         for (const p of rocket.particles) {
           if (p.alpha > 0.01) {
             allFaded = false
@@ -175,15 +123,14 @@ export default function LandingFireworks() {
             ctx!.fill()
           }
         }
+
+        // ลบจรวดที่ระเบิดแล้วและ particle หายหมดแล้ว
+        if (rocket.exploded && allFaded) {
+          rockets.splice(i, 1)
+        }
       }
 
       ctx!.globalAlpha = 1
-
-      if (allFaded) {
-        done = true
-        return
-      }
-
       animId = requestAnimationFrame(animate)
     }
 
@@ -191,6 +138,8 @@ export default function LandingFireworks() {
 
     return () => {
       cancelAnimationFrame(animId)
+      clearInterval(spawnInterval)
+      clearInterval(soundInterval)
     }
   }, [])
 
