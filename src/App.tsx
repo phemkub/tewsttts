@@ -15,31 +15,33 @@ function App() {
   const [isMuted, setIsMuted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const fireworkSoundRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const fireworkAudioRef = useRef<HTMLAudioElement | null>(null)
   const audioSrc = '/tewsttts/superpowers.mp3'
 
   const startFireworkSound = () => {
-    if (fireworkSoundRef.current) return
-    const playSound = () => {
-      const audio = new Audio('/tewsttts/fireworkl.mp3')
-      audio.volume = 0.5
-      void audio.play().catch(() => {})
-    }
-    playSound()
-    fireworkSoundRef.current = setInterval(playSound, 6000)
+    if (fireworkAudioRef.current) return
+    const audio = new Audio('/tewsttts/fireworkl.mp3')
+    audio.loop = true
+    audio.volume = 0.5
+    void audio.play().catch(() => {})
+    fireworkAudioRef.current = audio
   }
 
   const stopFireworkSound = () => {
-    if (fireworkSoundRef.current) {
-      clearInterval(fireworkSoundRef.current)
-      fireworkSoundRef.current = null
+    if (fireworkAudioRef.current) {
+      fireworkAudioRef.current.pause()
+      fireworkAudioRef.current.currentTime = 0
+      fireworkAudioRef.current = null
     }
   }
 
   const handleNextClick = () => {
-    startFireworkSound()
+  startFireworkSound()
+  window.setTimeout(() => {
+    stopFireworkSound()
     setStep('gift')
-  }
+  }, 100)
+}
 
   const handleGiftOpened = () => {
     stopFireworkSound()
@@ -81,7 +83,7 @@ function App() {
           <p className="sub-title">
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
-          <p className="hint-text">กดตรงไหนก็ได้ของจอก่อนกดnextน้าาา</p>
+          <p className="hint-text">เธอกดNEXTเร็ววว</p>
           <button className="primary-btn" onClick={handleNextClick}>
             {content.nextLabel}
           </button>
