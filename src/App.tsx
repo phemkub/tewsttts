@@ -88,7 +88,7 @@ function App() {
       {step === 'gift' ? (
         <section className="panel">
           <h2 className="section-title">กล่องของขวัญสำหรับ {content.partnerName}</h2>
-          <p className="hint-text">กดที่กล่อง</p>
+          <p className="hint-text">เป็น 17ขวบ ที่ดีครับผมมม</p>
           <GiftBox onOpen={handleGiftOpened} />
         </section>
       ) : null}
