@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import GiftBox from './components/GiftBox'
+import LandingFireworks from './components/LandingFireworks'
 import MiniFireworks from './components/MiniFireworks'
 import PaperLetter from './components/PaperLetter'
 import PhotoGallery from './components/PhotoGallery'
@@ -14,9 +15,7 @@ function App() {
   const [isMuted, setIsMuted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-
-
-const audioSrc = '/tewsttts/superpowers.mp3'
+  const audioSrc = '/tewsttts/superpowers.mp3'
 
   const handleGiftOpened = () => {
     setShowFireworks(true)
@@ -28,9 +27,7 @@ const audioSrc = '/tewsttts/superpowers.mp3'
     const audio = audioRef.current
     if (!audio) return
     if (step === 'letter') {
-      void audio.play().catch(() => {
-      
-      })
+      void audio.play().catch(() => {})
       return
     }
     audio.pause()
@@ -54,14 +51,13 @@ const audioSrc = '/tewsttts/superpowers.mp3'
 
       {step === 'landing' ? (
         <section className="panel">
+          <LandingFireworks />
           <p className="emoji-row">My Melody 🎀 | 🐶 Puppy Love</p>
           <TypewriterTitle text={content.mainTitle} />
           <p className="sub-title">
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
-          <p className="hint-text">
-            เธอกดNEXTเร็ววว
-          </p>
+          <p className="hint-text">เธอกดNEXTเร็ววว</p>
           <button className="primary-btn" onClick={() => setStep('gift')}>
             {content.nextLabel}
           </button>
@@ -79,15 +75,14 @@ const audioSrc = '/tewsttts/superpowers.mp3'
       {step === 'letter' ? (
         <section className="panel letter-stage">
           <div className="audio-wrap">
-            {}
-           <audio
-  ref={audioRef}
-  src={audioSrc}
-  loop
-  muted={isMuted}
-  onPlay={() => setIsPlaying(true)}
-  onPause={() => setIsPlaying(false)}
-/>
+            <audio
+              ref={audioRef}
+              src={audioSrc}
+              loop
+              muted={isMuted}
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+            />
             <button className="primary-btn" onClick={handlePlayToggle}>
               {isPlaying ? 'หยุดเพลง' : 'เปิดเพลง'}
             </button>
