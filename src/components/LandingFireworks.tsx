@@ -22,7 +22,6 @@ interface Rocket {
 
 function playFireworkSound(ctx: AudioContext, delay: number) {
   setTimeout(() => {
-    // เสียงยิง (whoosh)
     const whoosh = ctx.createOscillator()
     const whooshGain = ctx.createGain()
     whoosh.connect(whooshGain)
@@ -34,7 +33,6 @@ function playFireworkSound(ctx: AudioContext, delay: number) {
     whoosh.start(ctx.currentTime)
     whoosh.stop(ctx.currentTime + 0.3)
 
-    // เสียงระเบิด (pop + crackle)
     setTimeout(() => {
       const bufferSize = ctx.sampleRate * 0.15
       const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate)
@@ -113,7 +111,6 @@ export default function LandingFireworks() {
       },
     ]
 
-    // เสียง
     try {
       const audioCtx = new AudioContext()
       playFireworkSound(audioCtx, 0)
@@ -145,7 +142,7 @@ export default function LandingFireworks() {
 
     function animate() {
       if (done) return
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx!.clearRect(0, 0, canvas!.width, canvas!.height)
 
       let allFaded = true
 
@@ -153,12 +150,11 @@ export default function LandingFireworks() {
         if (!rocket.exploded) {
           allFaded = false
           rocket.y += rocket.vy
-          // วาดหาง
-          ctx.beginPath()
-          ctx.arc(rocket.x, rocket.y, 3, 0, Math.PI * 2)
-          ctx.fillStyle = rocket.color
-          ctx.globalAlpha = 1
-          ctx.fill()
+          ctx!.beginPath()
+          ctx!.arc(rocket.x, rocket.y, 3, 0, Math.PI * 2)
+          ctx!.fillStyle = rocket.color
+          ctx!.globalAlpha = 1
+          ctx!.fill()
 
           if (rocket.y <= rocket.targetY) {
             explode(rocket)
@@ -170,18 +166,18 @@ export default function LandingFireworks() {
             allFaded = false
             p.x += p.vx
             p.y += p.vy
-            p.vy += 0.07 // gravity
+            p.vy += 0.07
             p.alpha -= 0.018
-            ctx.beginPath()
-            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-            ctx.fillStyle = p.color
-            ctx.globalAlpha = Math.max(0, p.alpha)
-            ctx.fill()
+            ctx!.beginPath()
+            ctx!.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
+            ctx!.fillStyle = p.color
+            ctx!.globalAlpha = Math.max(0, p.alpha)
+            ctx!.fill()
           }
         }
       }
 
-      ctx.globalAlpha = 1
+      ctx!.globalAlpha = 1
 
       if (allFaded) {
         done = true
