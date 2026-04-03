@@ -229,15 +229,8 @@ margin: 0 auto;
 }
 
 .paper-closing {
-  font-weight: 700;
-  color: #e8007a;          /* เข้มขึ้น */
-  font-size: 1.15rem;      /* ใหญ่ขึ้น */
-  font-family: 'Press Start 2P', cursive;   /* เพิ่มฟอนต์พิกเซล */
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 0 #ffc6e7;
-  margin-top: 20px;
-  line-height: 1.7;
-}
+  font-weight: 600;
+  color: #bf0d7e;
 
 .upload-btn input {
   display: none;
