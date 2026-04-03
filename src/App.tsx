@@ -15,9 +15,34 @@ function App() {
   const [isMuted, setIsMuted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const fireworkSoundRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const audioSrc = '/tewsttts/superpowers.mp3'
 
+  const startFireworkSound = () => {
+    if (fireworkSoundRef.current) return
+    const playSound = () => {
+      const audio = new Audio('/tewsttts/fireworkl.mp3')
+      audio.volume = 0.5
+      void audio.play().catch(() => {})
+    }
+    playSound()
+    fireworkSoundRef.current = setInterval(playSound, 800)
+  }
+
+  const stopFireworkSound = () => {
+    if (fireworkSoundRef.current) {
+      clearInterval(fireworkSoundRef.current)
+      fireworkSoundRef.current = null
+    }
+  }
+
+  const handleNextClick = () => {
+    startFireworkSound()
+    setStep('gift')
+  }
+
   const handleGiftOpened = () => {
+    stopFireworkSound()
     setShowFireworks(true)
     window.setTimeout(() => setShowFireworks(false), 2200)
     window.setTimeout(() => setStep('letter'), 1700)
@@ -48,7 +73,6 @@ function App() {
   return (
     <main className="app-shell">
       {showFireworks ? <MiniFireworks /> : null}
-
       {step === 'landing' ? (
         <section className="panel">
           <LandingFireworks />
@@ -58,12 +82,11 @@ function App() {
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
           <p className="hint-text">เธอกดNEXTเร็ววว</p>
-          <button className="primary-btn" onClick={() => setStep('gift')}>
+          <button className="primary-btn" onClick={handleNextClick}>
             {content.nextLabel}
           </button>
         </section>
       ) : null}
-
       {step === 'gift' ? (
         <section className="panel">
           <h2 className="section-title">กล่องของขวัญสำหรับ {content.partnerName}</h2>
@@ -71,7 +94,6 @@ function App() {
           <GiftBox onOpen={handleGiftOpened} />
         </section>
       ) : null}
-
       {step === 'letter' ? (
         <section className="panel letter-stage">
           <div className="audio-wrap">
