@@ -81,7 +81,7 @@ function App() {
           <p className="sub-title">
             สุขสันต์วันเกิด {content.partnerName} ({content.birthdayThai})
           </p>
-          <p className="hint-text">เธอกดNEXTเร็ววว</p>
+          <p className="hint-text">กดตรงไหนก็ได้ของจอก่อนกดnextน้าาา</p>
           <button className="primary-btn" onClick={handleNextClick}>
             {content.nextLabel}
           </button>
